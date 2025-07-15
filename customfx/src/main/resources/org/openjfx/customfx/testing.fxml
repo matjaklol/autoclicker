@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.customfx.TestController">
+  <tabs>
+      <Tab text="Autoclicker">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="376.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <TitledPane fx:id="clickIntervalTitlePane" collapsible="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" text="Click Interval" underline="true" HBox.hgrow="ALWAYS">
+                                 <content>
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <HBox alignment="CENTER" pickOnBounds="false" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                             <children>
+                                                <HBox alignment="CENTER" prefHeight="37.0" prefWidth="113.0" spacing="5.0">
+                                                   <children>
+                                                      <TextField fx:id="hourTextField" alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="55.0" promptText="0" text="0" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hours">
+                                                         <font>
+                                                            <Font size="11.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="37.0" prefWidth="113.0" spacing="5.0">
+                                                   <children>
+                                                      <TextField fx:id="minuteTextField" alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="55.0" promptText="0" text="0" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Minutes">
+                                                         <font>
+                                                            <Font size="11.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="37.0" prefWidth="113.0" spacing="5.0">
+                                                   <children>
+                                                      <TextField fx:id="secondTextField" alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="55.0" promptText="0" text="0" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Seconds">
+                                                         <font>
+                                                            <Font size="11.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="37.0" prefWidth="124.0" spacing="5.0">
+                                                   <children>
+                                                      <TextField fx:id="millisTextField" alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="55.0" promptText="1" text="100" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Milliseconds">
+                                                         <font>
+                                                            <Font size="11.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <CheckBox fx:id="randomOffsetCheckbox" contentDisplay="CENTER" graphicTextGap="2.0" mnemonicParsing="false" onAction="#enableRandomOffset" prefHeight="26.0" prefWidth="122.0" text="Random Offset" textAlignment="CENTER" wrapText="true">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <tooltip>
+                                                      <Tooltip text="Enables a random additional offset of 0-x milliseconds between each click." wrapText="true" />
+                                                   </tooltip>
+                                                </CheckBox>
+                                                <HBox alignment="CENTER" prefHeight="37.0" prefWidth="113.0" spacing="5.0">
+                                                   <children>
+                                                      <TextField fx:id="offsetTextField" alignment="CENTER_RIGHT" disable="true" onAction="#updateRandomOffset" onKeyTyped="#updateRandomOffset" prefHeight="28.0" prefWidth="55.0" promptText="40" text="40" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Milliseconds">
+                                                         <font>
+                                                            <Font size="11.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </TitledPane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <TitledPane fx:id="buttonSettings" collapsible="false" focusTraversable="false" pickOnBounds="false" prefHeight="200.0" prefWidth="200.0" text="Button Settings" underline="true">
+                                 <content>
+                                    <VBox prefHeight="83.0" prefWidth="228.0">
+                                       <children>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Click Type:">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Text>
+                                                <ChoiceBox fx:id="clickTypeDropdown" prefHeight="14.0" prefWidth="86.0" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mouse Button:">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Text>
+                                                <ChoiceBox id="mouseButtons" fx:id="mouseButtonDropdown" prefHeight="14.0" prefWidth="86.0" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </TitledPane>
+                              <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <TitledPane fx:id="repeatSettingsPane" collapsible="false" focusTraversable="false" pickOnBounds="false" prefHeight="100.0" prefWidth="206.0" text="Repeat Settings" underline="true">
+                                 <content>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <RadioButton fx:id="manualRepeatKnob" focusTraversable="false" mnemonicParsing="false" onAction="#repeatLogic" prefHeight="15.0" prefWidth="69.0" text="Repeat">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <toggleGroup>
+                                                      <ToggleGroup fx:id="repeatCount" />
+                                                   </toggleGroup>
+                                                </RadioButton>
+                                                <HBox alignment="CENTER" prefHeight="37.0" prefWidth="113.0" spacing="5.0">
+                                                   <children>
+                                                      <TextField fx:id="repeatAmountTextField" alignment="CENTER_RIGHT" disable="true" onAction="#calculateRepeatLogic" onKeyReleased="#calculateRepeatLogic" prefHeight="28.0" prefWidth="55.0" text="1" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time(s)">
+                                                         <font>
+                                                            <Font size="11.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                          <RadioButton fx:id="automaticRepeatKnob" focusTraversable="false" mnemonicParsing="false" onAction="#repeatLogic" selected="true" text="Until stopped" toggleGroup="$repeatCount">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </RadioButton>
+                                          <Region prefHeight="64.0" prefWidth="200.0" />
+                                       </children>
+                                    </VBox>
+                                 </content>
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </TitledPane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="600.0" VBox.vgrow="NEVER">
+                           <children>
+                              <TitledPane collapsible="false" focusTraversable="false" pickOnBounds="false" prefHeight="200.0" prefWidth="600.0" text="Cursor Location" underline="true" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                                 <content>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
+                                       <children>
+                                          <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="207.0" selected="true" text="Default" HBox.hgrow="ALWAYS">
+                                             <tooltip>
+                                                <Tooltip autoHide="true" text="Use the current mouse location as the cursor location." />
+                                             </tooltip>
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="locationGroup" />
+                                             </toggleGroup>
+                                          </RadioButton>
+                                          <HBox alignment="CENTER" prefHeight="29.0" prefWidth="490.0" spacing="25.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="116.0" text="Specific Location" toggleGroup="$locationGroup">
+                                                   <tooltip>
+                                                      <Tooltip autoHide="true" text="Use a screen location as click location." />
+                                                   </tooltip>
+                                                </RadioButton>
+                                                <HBox alignment="CENTER" prefHeight="149.0" prefWidth="277.0" spacing="5.0" HBox.hgrow="NEVER">
+                                                   <children>
+                                                      <Button disable="true" mnemonicParsing="false" text="Click Location">
+                                                         <tooltip>
+                                                            <Tooltip text="Find a location on the screen to click at." />
+                                                         </tooltip>
+                                                      </Button>
+                                                      <HBox alignment="CENTER" prefHeight="149.0" prefWidth="85.0" spacing="5.0">
+                                                         <children>
+                                                            <TextField alignment="CENTER_RIGHT" disable="true" prefHeight="28.0" prefWidth="55.0" text="0" />
+                                                            <Text disable="true" strokeType="OUTSIDE" strokeWidth="0.0" text="X">
+                                                               <font>
+                                                                  <Font size="11.0" />
+                                                               </font>
+                                                            </Text>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER" prefHeight="149.0" prefWidth="78.0" spacing="5.0">
+                                                         <children>
+                                                            <TextField alignment="CENTER_RIGHT" disable="true" prefHeight="28.0" prefWidth="55.0" text="0" />
+                                                            <Text disable="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Y">
+                                                               <font>
+                                                                  <Font size="11.0" />
+                                                               </font>
+                                                            </Text>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                    </HBox>
+                                 </content>
+                              </TitledPane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Button id="startAutoClickerButton" fx:id="startAutoClickerButton" mnemonicParsing="false" onAction="#startAutoClicker" prefHeight="49.0" prefWidth="267.0" text="Start (keybind)" />
+                                    <Button fx:id="hotkeyButton" mnemonicParsing="false" onAction="#hotkeyButtonPressed" prefHeight="49.0" prefWidth="267.0" text="Adjust keybind" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Button id="stopAutoClickerButton" fx:id="stopAutoClickerButton" disable="true" mnemonicParsing="false" onAction="#stopAutoClicker" prefHeight="49.0" prefWidth="267.0" text="Stop (keybind)" />
+                                    <Button disable="true" focusTraversable="false" mnemonicParsing="false" prefHeight="49.0" prefWidth="267.0" text="null" visible="false" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+    <Tab text="Anti-AFK">
+         <content>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <TitledPane animated="false" collapsible="false" minHeight="150.0" text="AFK Options">
+                           <content>
+                              <HBox prefHeight="108.0" prefWidth="596.0">
+                                 <children>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="106.0" prefWidth="221.0" spacing="25.0">
+                                       <children>
+                                          <CheckBox mnemonicParsing="false" selected="true" text="Use keyboard">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </CheckBox>
+                                          <CheckBox mnemonicParsing="false" text="Use mouse">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </CheckBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="124.0" prefWidth="178.0" spacing="25.0">
+                                       <children>
+                                          <RadioButton mnemonicParsing="false" selected="true" text="Until Stopped">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="afkGroup" />
+                                             </toggleGroup>
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </RadioButton>
+                                          <RadioButton mnemonicParsing="false" text="Timed" toggleGroup="$afkGroup">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </RadioButton>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER" disable="true" prefHeight="124.0" prefWidth="239.0" spacing="5.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="207.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="AFK For:" wrappingWidth="88.8857421875">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Text>
+                                                <TextField />
+                                             </children>
+                                          </HBox>
+                                          <ChoiceBox prefHeight="29.0" prefWidth="225.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </content>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </TitledPane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="126.0" prefWidth="600.0">
+                     <children>
+                        <TitledPane animated="false" collapsible="false" prefHeight="98.0" prefWidth="600.0" text="Advanced">
+                           <content>
+                              <HBox prefHeight="67.0" prefWidth="596.0">
+                                 <children>
+                                    <VBox prefHeight="72.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time between Actions:">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </Text>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="186.0" spacing="5.0">
+                                             <children>
+                                                <TextField text="1">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </TextField>
+                                                <ChoiceBox prefWidth="150.0" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="10.0" layoutY="10.0" prefHeight="74.0" prefWidth="212.0" />
+                                    <VBox layoutX="10.0" layoutY="10.0" prefHeight="72.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time before start">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </Text>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="186.0" spacing="5.0">
+                                             <children>
+                                                <TextField text="5">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </TextField>
+                                                <ChoiceBox prefWidth="150.0" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </content>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </TitledPane>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="47.0" prefWidth="600.0">
+                     <children>
+                        <Button defaultButton="true" mnemonicParsing="false" prefHeight="51.0" prefWidth="291.0" text="Start!" />
+                     </children>
+                  </HBox>
+               </children></VBox>
+         </content></Tab>
+      <Tab text="Dev Info">
+         <content>
+            <TextFlow prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="280.0" fitWidth="267.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@luckystar.gif" />
+                     </image>
+                  </ImageView>
+               </children></TextFlow>
+         </content></Tab>
+  </tabs>
+</TabPane>
