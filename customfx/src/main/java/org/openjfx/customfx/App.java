@@ -33,7 +33,7 @@ import java.awt.Robot;
  * JavaFX App
  */
 public class App extends Application {
-
+	//Generic scene
     private static Scene scene;
 
     @Override
