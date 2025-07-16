@@ -16,7 +16,6 @@ import javafx.scene.control.TitledPane;
 
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 
-
 public class TestController implements Initializable {
 	
 	//The default autoclicker start/stop keybind. (F6).
@@ -259,6 +258,7 @@ public class TestController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		afkLogic = new AfkLogicClass(afkStartButton, useKeyboard, useMouse, timedAFKKnob, infiniteAFKKnob, afkTimeTextBox, timespan, betweenActionsTextBox, betweenActionsTimespan, beforeStartTextBox, beforeStartTimespan);
 		clickTypeDropdown.getItems().addAll(mouseClickTypes);
 		clickTypeDropdown.setValue(mouseClickTypes[0]);
 		clickTypeDropdown.setOnAction(this::getClickType);
@@ -417,4 +417,62 @@ public class TestController implements Initializable {
 		// TODO Auto-generated method stub
 		return autoClickerKeybind;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/* ===HANDLE AFK===
+	 * 
+	 * 
+	 * 
+	 */
+	@FXML
+	private CheckBox useKeyboard;
+	
+	@FXML
+	private CheckBox useMouse;
+	
+	@FXML
+	private RadioButton timedAFKKnob;
+	@FXML
+	private RadioButton infiniteAFKKnob;
+	
+	@FXML
+	private TextField afkTimeTextBox;
+	@FXML
+	private ChoiceBox<String> timespan;
+	
+	@FXML
+	private TextField betweenActionsTextBox;
+	@FXML
+	private ChoiceBox<String> betweenActionsTimespan;
+	@FXML
+	private TextField beforeStartTextBox;
+	@FXML
+	private ChoiceBox<String> beforeStartTimespan;
+	
+	@FXML
+	private Button afkStartButton;
+	
+	private AfkLogicClass afkLogic;
 }

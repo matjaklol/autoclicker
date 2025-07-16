@@ -4,6 +4,8 @@ module org.openjfx.customfx {
 	requires javafx.base;
 	requires com.github.kwhat.jnativehook;
 	requires java.desktop;
+//	requires org.openjfx.customfx;
+	requires javafx.graphics;
 
     opens org.openjfx.customfx to javafx.fxml;
     exports org.openjfx.customfx;

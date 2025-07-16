@@ -23,7 +23,7 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.customfx.TestController">
   <tabs>
-      <Tab text="Autoclicker">
+      <Tab closable="false" text="Autoclicker">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -271,7 +271,7 @@
             </AnchorPane>
         </content>
       </Tab>
-    <Tab text="Anti-AFK">
+    <Tab closable="false" text="Anti-AFK">
          <content>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
@@ -283,12 +283,12 @@
                                  <children>
                                     <VBox alignment="CENTER_LEFT" prefHeight="106.0" prefWidth="221.0" spacing="25.0">
                                        <children>
-                                          <CheckBox mnemonicParsing="false" selected="true" text="Use keyboard">
+                                          <CheckBox fx:id="useKeyboard" mnemonicParsing="false" selected="true" text="Use keyboard">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
                                           </CheckBox>
-                                          <CheckBox mnemonicParsing="false" text="Use mouse">
+                                          <CheckBox fx:id="useMouse" mnemonicParsing="false" text="Use mouse">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
@@ -297,7 +297,7 @@
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" prefHeight="124.0" prefWidth="178.0" spacing="25.0">
                                        <children>
-                                          <RadioButton mnemonicParsing="false" selected="true" text="Until Stopped">
+                                          <RadioButton fx:id="timedAFKKnob" focusTraversable="false" mnemonicParsing="false" text="Timed">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="afkGroup" />
                                              </toggleGroup>
@@ -305,26 +305,30 @@
                                                 <Font size="11.0" />
                                              </font>
                                           </RadioButton>
-                                          <RadioButton mnemonicParsing="false" text="Timed" toggleGroup="$afkGroup">
+                                          <RadioButton fx:id="infiniteAFKKnob" focusTraversable="false" mnemonicParsing="false" selected="true" text="Until Stopped" toggleGroup="$afkGroup">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
                                           </RadioButton>
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" disable="true" prefHeight="124.0" prefWidth="239.0" spacing="5.0">
+                                    <VBox alignment="CENTER" prefHeight="124.0" prefWidth="239.0" spacing="5.0">
                                        <children>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="207.0">
+                                          <HBox alignment="CENTER" prefHeight="42.0" prefWidth="207.0" VBox.vgrow="ALWAYS">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="AFK For:" wrappingWidth="88.8857421875">
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="AFK For:" wrappingWidth="61.8857421875" HBox.hgrow="ALWAYS">
                                                    <font>
                                                       <Font size="11.0" />
                                                    </font>
                                                 </Text>
-                                                <TextField />
+                                                <VBox alignment="CENTER" prefHeight="107.0" prefWidth="135.0" spacing="5.0" HBox.hgrow="NEVER">
+                                                   <children>
+                                                      <TextField id="afkTimeTextBox" fx:id="afkTimeTextBox" alignment="CENTER" promptText="15" />
+                                                      <ChoiceBox fx:id="timespan" prefHeight="29.0" prefWidth="163.0" />
+                                                   </children>
+                                                </VBox>
                                              </children>
                                           </HBox>
-                                          <ChoiceBox prefHeight="29.0" prefWidth="225.0" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -336,7 +340,7 @@
                         </TitledPane>
                      </children>
                   </HBox>
-                  <HBox prefHeight="126.0" prefWidth="600.0">
+                  <HBox prefHeight="130.0" prefWidth="600.0">
                      <children>
                         <TitledPane animated="false" collapsible="false" prefHeight="98.0" prefWidth="600.0" text="Advanced">
                            <content>
@@ -351,17 +355,17 @@
                                           </Text>
                                           <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="186.0" spacing="5.0">
                                              <children>
-                                                <TextField text="1">
+                                                <TextField fx:id="betweenActionsTextBox" promptText="6" text="1">
                                                    <font>
                                                       <Font size="11.0" />
                                                    </font>
                                                 </TextField>
-                                                <ChoiceBox prefWidth="150.0" />
+                                                <ChoiceBox fx:id="betweenActionsTimespan" prefWidth="150.0" />
                                              </children>
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox layoutX="10.0" layoutY="10.0" prefHeight="74.0" prefWidth="212.0" />
+                                    <VBox layoutX="10.0" layoutY="10.0" prefHeight="34.0" prefWidth="221.0" />
                                     <VBox layoutX="10.0" layoutY="10.0" prefHeight="72.0" prefWidth="186.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time before start">
@@ -371,12 +375,12 @@
                                           </Text>
                                           <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="186.0" spacing="5.0">
                                              <children>
-                                                <TextField text="5">
+                                                <TextField fx:id="beforeStartTextBox" prefHeight="24.0" prefWidth="156.0" promptText="7" text="15">
                                                    <font>
                                                       <Font size="11.0" />
                                                    </font>
                                                 </TextField>
-                                                <ChoiceBox prefWidth="150.0" />
+                                                <ChoiceBox fx:id="beforeStartTimespan" prefWidth="150.0" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -392,7 +396,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="47.0" prefWidth="600.0">
                      <children>
-                        <Button defaultButton="true" mnemonicParsing="false" prefHeight="51.0" prefWidth="291.0" text="Start!" />
+                        <Button fx:id="afkStartButton" defaultButton="true" mnemonicParsing="false" prefHeight="47.0" prefWidth="294.0" text="Start!" />
                      </children>
                   </HBox>
                </children></VBox>
