@@ -24,6 +24,8 @@ public class KeybindHandler implements NativeKeyListener {
 	private int randomOffsetValue = 40;
 	private int repeatCount = -1;
 	
+	private Thread clickThread;
+	
 	public void setController(TestController controller) {
 		this.controller = controller;
 		controller.setKeybindHandler(this);
@@ -70,7 +72,7 @@ public class KeybindHandler implements NativeKeyListener {
         }
     }
 	
-	private Thread clickThread;
+	
 	public void startAutoClicker() {
 		Platform.runLater(() -> {
 			controller.remoteStartAutoclicker();

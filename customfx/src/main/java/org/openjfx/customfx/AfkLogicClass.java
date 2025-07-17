@@ -86,6 +86,7 @@ public class AfkLogicClass {
 	}
 	
 	
+	
 	private void afkTypeLogic(ActionEvent event) {
 		keyboardActive = useKeyboard.isSelected();
 		mouseActive = useMouse.isSelected();
@@ -110,4 +111,22 @@ public class AfkLogicClass {
 		timespan.setDisable(!timer);
 		
 	}
+	
+	
+	/**
+	 * Disables some GUI components during the running of the Anti-AFK system.
+	 * 
+	 */
+	public void startAFK() {
+		
+	}
+	
+	/**
+	 * Re-enables some GUI components that were disabled from the starting of the Anti-AFK system.
+	 */
+	public void stopAFK() {
+		
+	}
+	
+	
 }
