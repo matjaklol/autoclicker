@@ -277,7 +277,7 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TitledPane animated="false" collapsible="false" minHeight="150.0" text="AFK Options">
+                        <TitledPane fx:id="afkOptionPane" animated="false" collapsible="false" minHeight="150.0" text="AFK Options">
                            <content>
                               <HBox prefHeight="108.0" prefWidth="596.0">
                                  <children>
@@ -342,7 +342,7 @@
                   </HBox>
                   <HBox prefHeight="130.0" prefWidth="600.0">
                      <children>
-                        <TitledPane animated="false" collapsible="false" prefHeight="98.0" prefWidth="600.0" text="Advanced">
+                        <TitledPane fx:id="advancedOptionPane" animated="false" collapsible="false" prefHeight="98.0" prefWidth="600.0" text="Advanced">
                            <content>
                               <HBox prefHeight="67.0" prefWidth="596.0">
                                  <children>

@@ -259,6 +259,9 @@ public class TestController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		afkLogic = new AfkLogicClass(afkStartButton, useKeyboard, useMouse, timedAFKKnob, infiniteAFKKnob, afkTimeTextBox, timespan, betweenActionsTextBox, betweenActionsTimespan, beforeStartTextBox, beforeStartTimespan);
+		afkLogic.setPanes(afkOptionPane, advancedOptionPane);
+		
+		
 		clickTypeDropdown.getItems().addAll(mouseClickTypes);
 		clickTypeDropdown.setValue(mouseClickTypes[0]);
 		clickTypeDropdown.setOnAction(this::getClickType);
@@ -473,6 +476,11 @@ public class TestController implements Initializable {
 	
 	@FXML
 	private Button afkStartButton;
+	
+	@FXML
+	private TitledPane advancedOptionPane;
+	
+	@FXML private TitledPane afkOptionPane;
 	
 	private AfkLogicClass afkLogic;
 }

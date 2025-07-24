@@ -50,15 +50,35 @@ public class AfkInputClass {
 			return;
 		}
 		
+		System.out.println("Got here");
 		Platform.runLater(()->{
 			logicClass.startAFK();
 		});
+		System.out.println("Got here");
+		
+		if(autoRunTime > 0) {
+			timer = new Timer();
+			
+			// Schedule a TimerTask to run after the specified delay
+			timer.schedule(new TimerTask() {
+	            @Override
+	            public void run() {
+	                running = false;
+	                afkThread.interrupt();
+	            }
+	        }, autoRunTime);
+		}
+		
+		running = true;
+		
+		System.out.println("Got here");
 		
 		afkThread = new Thread(()->{
 			try {
 				Robot robot = new Robot();
 				boolean movedRight = false;
 				try {
+					System.out.println("Starting init sleep: "+timeBeforeStart+" millis");
 					Thread.sleep(timeBeforeStart);
 				} catch(InterruptedException e) {
 					stopAFK();
@@ -66,20 +86,11 @@ public class AfkInputClass {
 					return;
 				}
 				
-				timer = new Timer();
-				
-				// Schedule a TimerTask to run after the specified delay
-				timer.schedule(new TimerTask() {
-		            @Override
-		            public void run() {
-		                running = false;
-		                robot.waitForIdle();
-		            	stopAFK();
-		            }
-		        }, autoRunTime);
+				System.out.println("Running loop.");
 		        
 				do {
-					if(useKeyboard) {
+					if(true) {
+						System.out.println("Keyboard running");
 						robot.keyPress(KeyEvent.VK_SPACE);
 						robot.keyRelease(KeyEvent.VK_SPACE);
 						robot.delay(1);
@@ -92,6 +103,7 @@ public class AfkInputClass {
 					}
 					
 					if(useMouse) {
+						System.out.println("Mouse running");
 						robot.mouseMove(500, 500);
 						robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
 						robot.mouseMove(400, 500);
@@ -99,26 +111,34 @@ public class AfkInputClass {
 					}
 					
 					try {
+						System.out.println("Sleeping for: "+timeBetweenActions+"ms");
 						Thread.sleep(timeBetweenActions);
-					} catch(InterruptedException e) {
+					} catch(InterruptedException e) {	
 						stopAFK();
 						break;
 					}
 				} while(running);
 				
+				System.out.println("Thread ended.");
+				running = false;
+				stopAFK();
 				
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				
+				stopAFK();
 			}
 		});
+		afkThread.run();
 	}
 	
 	
 	public void stopAFK() {
-		timer.cancel();
-		timer = null;
+		if(timer != null) {
+			timer.cancel();
+			timer = null;
+		}
+		
 		
 		if(afkThread != null && afkThread.isAlive() && !afkThread.isInterrupted() && running) {
 			afkThread.interrupt();
