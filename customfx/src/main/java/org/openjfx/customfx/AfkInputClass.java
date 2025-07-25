@@ -51,9 +51,9 @@ public class AfkInputClass {
 		}
 		
 		System.out.println("Got here");
-		Platform.runLater(()->{
-			logicClass.startAFK();
-		});
+//		Platform.runLater(()->{
+//			logicClass.startAFK();
+//		});
 		System.out.println("Got here");
 		
 		if(autoRunTime > 0) {
@@ -129,7 +129,8 @@ public class AfkInputClass {
 				stopAFK();
 			}
 		});
-		afkThread.run();
+		afkThread.setDaemon(true);
+		afkThread.start();
 	}
 	
 	
@@ -141,12 +142,11 @@ public class AfkInputClass {
 		
 		
 		if(afkThread != null && afkThread.isAlive() && !afkThread.isInterrupted() && running) {
-			afkThread.interrupt();
-			
 			try {
+				afkThread.interrupt();
 				afkThread.join();
 			} catch(InterruptedException e) {
-				e.printStackTrace();
+				System.out.println("Forced termination? More than likely from the GUI button.");
 			}
 		}
 		

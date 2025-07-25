@@ -191,8 +191,8 @@ public class AfkLogicClass {
 			this.startAFK();
 			afkEmulator.startAFK(timeBetweenActions, timeBeforeStart);
 		} else {
-			afkEmulator.stopAFK();
 			this.stopAFK();
+			afkEmulator.stopAFK();
 		}
 //		
 		
