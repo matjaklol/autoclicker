@@ -13,10 +13,16 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 
 
+/**
+ * This class is more than just the KeybindHandler, however it does that as well. This class primarily handles the AutoClick emulation thread,
+ * and the emergency cancel listener.
+ * 
+ * @author keyboard
+ */
 public class KeybindHandler implements NativeKeyListener {
 	public static boolean running = false;
 	
-	private TestController controller;
+	private PrimaryController controller;
 	private long delay = 1L;
 	private int buttonType = InputEvent.BUTTON1_DOWN_MASK;
 	private boolean doubleClick = false;
@@ -26,7 +32,7 @@ public class KeybindHandler implements NativeKeyListener {
 	
 	private Thread clickThread;
 	
-	public void setController(TestController controller) {
+	public void setController(PrimaryController controller) {
 		this.controller = controller;
 		controller.setKeybindHandler(this);
 		// Disable noisy logging

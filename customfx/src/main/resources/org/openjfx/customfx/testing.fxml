@@ -11,17 +11,14 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.customfx.TestController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.customfx.PrimaryController">
   <tabs>
       <Tab closable="false" text="Autoclicker">
         <content>
@@ -187,7 +184,7 @@
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="600.0" VBox.vgrow="NEVER">
                            <children>
-                              <TitledPane collapsible="false" focusTraversable="false" pickOnBounds="false" prefHeight="200.0" prefWidth="600.0" text="Cursor Location" underline="true" HBox.hgrow="ALWAYS">
+                              <TitledPane collapsible="false" focusTraversable="false" pickOnBounds="false" prefHeight="66.0" prefWidth="600.0" text="Cursor Location" underline="true" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="11.0" />
                                  </font>
@@ -204,38 +201,10 @@
                                           </RadioButton>
                                           <HBox alignment="CENTER" prefHeight="29.0" prefWidth="490.0" spacing="25.0" HBox.hgrow="ALWAYS">
                                              <children>
-                                                <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="116.0" text="Specific Location" toggleGroup="$locationGroup">
-                                                   <tooltip>
-                                                      <Tooltip autoHide="true" text="Use a screen location as click location." />
-                                                   </tooltip>
-                                                </RadioButton>
-                                                <HBox alignment="CENTER" prefHeight="149.0" prefWidth="277.0" spacing="5.0" HBox.hgrow="NEVER">
+                                                <HBox alignment="CENTER" prefHeight="48.0" prefWidth="277.0" spacing="5.0" HBox.hgrow="NEVER">
                                                    <children>
-                                                      <Button disable="true" mnemonicParsing="false" text="Click Location">
-                                                         <tooltip>
-                                                            <Tooltip text="Find a location on the screen to click at." />
-                                                         </tooltip>
-                                                      </Button>
-                                                      <HBox alignment="CENTER" prefHeight="149.0" prefWidth="85.0" spacing="5.0">
-                                                         <children>
-                                                            <TextField alignment="CENTER_RIGHT" disable="true" prefHeight="28.0" prefWidth="55.0" text="0" />
-                                                            <Text disable="true" strokeType="OUTSIDE" strokeWidth="0.0" text="X">
-                                                               <font>
-                                                                  <Font size="11.0" />
-                                                               </font>
-                                                            </Text>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER" prefHeight="149.0" prefWidth="78.0" spacing="5.0">
-                                                         <children>
-                                                            <TextField alignment="CENTER_RIGHT" disable="true" prefHeight="28.0" prefWidth="55.0" text="0" />
-                                                            <Text disable="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Y">
-                                                               <font>
-                                                                  <Font size="11.0" />
-                                                               </font>
-                                                            </Text>
-                                                         </children>
-                                                      </HBox>
+                                                      <HBox alignment="CENTER" prefHeight="149.0" prefWidth="85.0" spacing="5.0" />
+                                                      <HBox alignment="CENTER" prefHeight="149.0" prefWidth="78.0" spacing="5.0" />
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -400,17 +369,6 @@
                      </children>
                   </HBox>
                </children></VBox>
-         </content></Tab>
-      <Tab text="Dev Info">
-         <content>
-            <TextFlow prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <ImageView fitHeight="280.0" fitWidth="267.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@luckystar.gif" />
-                     </image>
-                  </ImageView>
-               </children></TextFlow>
          </content></Tab>
   </tabs>
 </TabPane>

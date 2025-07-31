@@ -1,18 +1,20 @@
 package org.openjfx.customfx;
 
 
-import java.lang.reflect.Method;
-
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.HBox;
 
+/**
+ * Handles the logic behind the Anti-AFK system.
+ * 
+ * @author keyboard
+ * @version 1.1.2
+ */
 public class AfkLogicClass {
 	private Button afkStartButton;
 	private boolean canGoAfk = true;
@@ -31,11 +33,7 @@ public class AfkLogicClass {
 	
 	
 	private RadioButton timedAFKKnob;
-	private RadioButton infiniteAFKKnob;
-	
-	
 	private TextField afkTimeTextBox;
-	private int afkTimer = -1;
 	private ChoiceBox<String> timespan;
 	
 	private boolean timer = false;
@@ -57,6 +55,7 @@ public class AfkLogicClass {
 	
 	private AfkInputClass afkEmulator;
 	
+	
 	public AfkLogicClass(Button afkStartButton, CheckBox useKeyboard, CheckBox useMouse, RadioButton timedAFKKnob, RadioButton infiniteAFKKnob, TextField afkTimeTextBox, ChoiceBox<String> timespan, TextField betweenActionsTextBox, ChoiceBox<String> betweenActionsTimespan, TextField beforeStartTextBox, ChoiceBox<String> beforeStartTimespan) {
 		this.afkStartButton = afkStartButton;
 		afkStartButton.setOnAction(this::afkButtonLogic);
@@ -65,9 +64,7 @@ public class AfkLogicClass {
 		this.useMouse = useMouse;
 		
 		this.timedAFKKnob = timedAFKKnob;
-		this.infiniteAFKKnob = infiniteAFKKnob;
 		this.afkTimeTextBox = afkTimeTextBox;
-		afkTimeTextBox.setOnAction(this::updateTime);
 		
 		this.timespan = timespan;
 		
@@ -101,6 +98,11 @@ public class AfkLogicClass {
 		afkEmulator = new AfkInputClass(this);
 	}
 	
+	/**
+	 * Sets the TitledPanes used to disable/enable the gui.
+	 * @param optionSection the TitledPane that handles the basic options section
+	 * @param advancedSection the TitledPane that handles the advanced options section.
+	 */
 	public void setPanes(TitledPane optionSection, TitledPane advancedSection) {
 		this.optionSection = optionSection;
 		this.advancedSection = advancedSection;
@@ -120,23 +122,29 @@ public class AfkLogicClass {
 	
 	
 	
+	/**
+	 * This method handles the basic logic for which AFK modes to utilize (keyboard only, mouse only, or keyboard & mouse).
+	 * @param event
+	 */
 	private void afkTypeLogic(ActionEvent event) {
 		keyboardActive = useKeyboard.isSelected();
 		mouseActive = useMouse.isSelected();
 		
+		//Don't allow the user to go AFK if they have no options selected.
 		if(!(keyboardActive || mouseActive)) {
 			canGoAfk = false;
-			System.out.println("AFK IS NO");
 			afkStartButton.setDisable(!canGoAfk);
 			return;
 		}
 		
 		canGoAfk = true;
-		System.out.println("AFK IS YES");
 		afkStartButton.setDisable(!canGoAfk);
 	}
 	
-	
+	/**
+	 * This method handles the logic for whether or not we are using a timed afk (x hours/minutes).
+	 * @param event
+	 */
 	private void timeLogic(ActionEvent event){
 		timer = timedAFKKnob.isSelected();
 		afkTimeTextBox.setDisable(!timer);
@@ -145,6 +153,12 @@ public class AfkLogicClass {
 	}
 	
 	
+	/**
+	 * This method takes an integer value and a string value for however long we should afk for. 
+	 * @param value the time period (0->inf)
+	 * @param timeType (hour, minute, second, millisecond)
+	 * @return however many milliseconds to run for.
+	 */
 	private int calculateRuntime(int value, String timeType) {
 		if(value <= -1) {
 			return -1;
@@ -160,33 +174,39 @@ public class AfkLogicClass {
 	}
 	
 	
-	private void updateTime(ActionEvent event) {
-		
-	}
 	
 	
+	/**
+	 * This method is called when pressing the 'START AFK' or 'STOP AFK' button.
+	 * @param event
+	 */
 	public void afkButtonLogic(ActionEvent event) {
 		//Redundant but better safe than sorry.
 		if(!canGoAfk) {
 			return;
 		}
 		
-		System.out.println("Clicked");
 		
+		//If we have a timer go ahead and tell the emulator how long to run the afk for.
 		if(timer) {
 			afkEmulator.setRunTime(calculateRuntime(getIntegerValue(afkTimeTextBox.getText()), timespan.getValue()));
 		} else {
 			afkEmulator.setRunTime(-1);
 		}
 		
+		
+		//Set our options for afking (mouse/keyboard modes).
 		afkEmulator.setActions(keyboardActive, mouseActive);
 		
+		//Lastly our time between each action
 		timeBetweenActions = getIntegerValue(betweenActionsTextBox.getText());
 		timeBetweenActions = calculateRuntime(timeBetweenActions, betweenActionsTimespan.getValue());
 		
+		//and our time before we start.
 		timeBeforeStart = getIntegerValue(beforeStartTextBox.getText());
 		timeBeforeStart = calculateRuntime(timeBeforeStart, beforeStartTimespan.getValue());
 		
+		//Start/stop the afk emulator and enable/disable the GUI elements.
 		if(!afk) {
 			this.startAFK();
 			afkEmulator.startAFK(timeBetweenActions, timeBeforeStart);
@@ -194,8 +214,6 @@ public class AfkLogicClass {
 			this.stopAFK();
 			afkEmulator.stopAFK();
 		}
-//		
-		
 		
 		
 	}

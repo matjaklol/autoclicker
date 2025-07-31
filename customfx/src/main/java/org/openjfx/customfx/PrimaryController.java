@@ -1,8 +1,9 @@
 package org.openjfx.customfx;
 import java.awt.event.InputEvent;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,9 +15,15 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 
-import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
-
-public class TestController implements Initializable {
+/**
+ * This class is the primary logic handler for the Autoclicker/Anti-afk. 
+ * It instantiates and updates GUI objects as needed, along with allowing for the buttons to interact with the 
+ * afk/autoclicker systems.
+ * 
+ * @author keyboard
+ * @version 1.1.2
+ */
+public class PrimaryController implements Initializable {
 	
 	//The default autoclicker start/stop keybind. (F6).
 	private int autoClickerKeybind = NativeKeyEvent.VC_F6;
@@ -25,13 +32,26 @@ public class TestController implements Initializable {
 	public static int autoClickerFailsafe = NativeKeyEvent.VC_ESCAPE;
 	
 	
+	/**
+	 * The autoclicker system and keybind handler.
+	 */
 	private KeybindHandler handlerRef;
+	
+	/**
+	 * Sets the primary {@linkplain KeyboardHandler}. Use this when starting up the app
+	 * so we have a reference to the autoclicker system.
+	 * @param handler
+	 */
 	public void setKeybindHandler(KeybindHandler handler) {
 		handlerRef = handler;
 	}
 	
+	/**
+	 * Removes the {@linkplain KeybindHandler} reference, for use in garbage collection.
+	 */
 	public void cleanRefs() {
 		this.handlerRef = null;
+		System.gc();
 	}
 	
 	
@@ -46,7 +66,7 @@ public class TestController implements Initializable {
 	 * @param value the string to check for.
 	 * @return 0 (if invalid), or positive value.
 	 */
-	private int validString(String value) {
+	private int validateString(String value) {
 		if (value.matches("[-+]?\\d+")) {
 	        return Math.abs(Integer.parseInt(value));
 	    }
@@ -166,10 +186,10 @@ public class TestController implements Initializable {
 	 */
 	public long calculateTotalDelay() {
 		long delay = 0;
-		delay += validString(hourTextField.getText()) * 3.6e+6; //1 Hour = 3.6*10^6 milliseconds
-		delay += validString(minuteTextField.getText()) * 60_000; //1 Minute = 60_000 milliseconds
-		delay += validString(secondTextField.getText()) * 1000; //1 Second = 1000 milliseconds
-		delay += validString(millisTextField.getText()); //add our base millisecond amount.
+		delay += validateString(hourTextField.getText()) * 3.6e+6; //1 Hour = 3.6*10^6 milliseconds
+		delay += validateString(minuteTextField.getText()) * 60_000; //1 Minute = 60_000 milliseconds
+		delay += validateString(secondTextField.getText()) * 1000; //1 Second = 1000 milliseconds
+		delay += validateString(millisTextField.getText()); //add our base millisecond amount.
 		
 		//Check to make sure we have a valid minimum amount of time between clicks.
 		if(delay <= 0) {
@@ -192,13 +212,21 @@ public class TestController implements Initializable {
 	@FXML 
 	public CheckBox randomOffsetCheckbox;
 	
-	
+	/**
+	 * Boolean to determine if we're using a random offset.
+	 */
 	private boolean randomOffset = false;
+	
+	//The default amount is a range of 0-40ms.
 	private int randomOffsetAmount = 40;
 	
 	@FXML
 	private TextField offsetTextField;
 	
+	
+	/**
+	 * Called on the enabling/disabling of the checkbox for the random offset.
+	 */
 	@FXML
 	private void enableRandomOffset() {
 		randomOffset = !randomOffset;
@@ -206,16 +234,29 @@ public class TestController implements Initializable {
 		updateRandomOffset();
 	}
 	
+	
+	/**
+	 * Updates the random offset from the random offset textbox (making sure it's a valid value)
+	 */
 	@FXML
 	private void updateRandomOffset() {
-		int newOffset = validString(offsetTextField.getText());
+		int newOffset = validateString(offsetTextField.getText());
 		randomOffsetAmount = newOffset;
 	}
 	
+	
+	/**
+	 * Public readonly method for determining if we're adding a random offset or not.
+	 * @return true/false if we're using a random offset or not.
+	 */
 	public boolean addingRandomOffset() {
 		return randomOffset;
 	}
 	
+	/**
+	 * Public readonly method for determining the MS offset of our autoclicker. 
+	 * @return integer value in MS that is at least 0.
+	 */
 	public int getRandomOffsetAmount() {
 		return randomOffsetAmount;
 	}
@@ -258,10 +299,11 @@ public class TestController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//Messy but it works. Just feed the AfkLogicClass all the GUI elements related to it.
 		afkLogic = new AfkLogicClass(afkStartButton, useKeyboard, useMouse, timedAFKKnob, infiniteAFKKnob, afkTimeTextBox, timespan, betweenActionsTextBox, betweenActionsTimespan, beforeStartTextBox, beforeStartTimespan);
 		afkLogic.setPanes(afkOptionPane, advancedOptionPane);
 		
-		
+		//Fill our dropdown lists with data (SINGLE, DOUBLE) & (LEFT, RIGHT, and MIDDLE).
 		clickTypeDropdown.getItems().addAll(mouseClickTypes);
 		clickTypeDropdown.setValue(mouseClickTypes[0]);
 		clickTypeDropdown.setOnAction(this::getClickType);
@@ -271,10 +313,17 @@ public class TestController implements Initializable {
 		mouseButtonDropdown.setValue(mouseButtonTypes[0]);
 		mouseButtonDropdown.setOnAction(this::getMouseType);
 		
+		//Set the button text initially to our default keybind. I got lazy during development so this was a shortcut if I changed the keybind.
 		startAutoClickerButton.setText("Start ("+NativeKeyEvent.getKeyText(autoClickerKeybind)+")");
 		stopAutoClickerButton.setText("Stop ("+NativeKeyEvent.getKeyText(autoClickerKeybind)+")");
 	}
 	
+	/**
+	 * Returns the updated value for the current mouse button type.
+	 * @param event, default parameter required by all Action methods.
+	 * @return An integer value. See {@linkplain InputEvent} for values.
+	 * @see {@linkplain InputEvent}
+	 */
 	public int getMouseType(ActionEvent event) {
 		String mouseType = mouseButtonDropdown.getValue();
 		
@@ -291,6 +340,11 @@ public class TestController implements Initializable {
 	}
 	
 	
+	/**
+	 * Returns the updated click type. Can be double or single click.
+	 * @param event, default paramater required by all Action methods.
+	 * @return True if double clicking, False if regular clicking.
+	 */
 	public boolean getClickType(ActionEvent event) {
 		String clickType = clickTypeDropdown.getValue();
 		
@@ -342,7 +396,7 @@ public class TestController implements Initializable {
 		}
 		
 		repeating = true;
-		times = validString(repeatAmountTextField.getText());
+		times = validateString(repeatAmountTextField.getText());
 	}
 	
 	

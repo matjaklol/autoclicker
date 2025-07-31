@@ -1,18 +1,16 @@
 package org.openjfx.customfx;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.application.Platform;
-
 import java.io.IOException;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
 
-import java.awt.AWTException;
-import java.awt.Robot;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 /* ===JLINK COMPILE INFO ===
  * jlink ^
@@ -38,12 +36,24 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+    	try {
+    		Image icon = new Image(this.getClass().getResourceAsStream("/org/openjfx/customfx/images/mouseIcon.png"));
+    		stage.getIcons().add(icon);
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	
         scene = new Scene(loadFXML("testing"), 600, 400);
         stage.setResizable(false);
-        stage.setTitle("Advanced Autoclicker");
+        
+        stage.setTitle("matClicker v1.1.2");
+        
         stage.setScene(scene);
         
-        stage.setOnCloseRequest(e -> {
+        
+        //On exit of the window, unregister the autoclicker/keybind listener.
+        stage.setOnCloseRequest(_ -> {
             try {
                 GlobalScreen.unregisterNativeHook();
             } catch (Exception ex) {
@@ -53,8 +63,10 @@ public class App extends Application {
             System.exit(0);  // Optional hard kill
         });
         
+        //Go ahead and display it.
         stage.show();
         
+        //Register the keybind listener.
         try {
             GlobalScreen.registerNativeHook();
         } catch (Exception e) {
@@ -73,12 +85,24 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
     
+    
     private static FXMLLoader fxmlLoader;
+    
+    /**
+     * Loads a given FXML file for a Stage.
+     * @param fxml the file to load (excluding the .fxml format).
+     * @return a {@linkplain Parent} object
+     * @throws IOException
+     */
     private static Parent loadFXML(String fxml) throws IOException {
         fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
+    /**
+     * App standard starting point. Could be used to init the entire program but we're calling that from Main instead.
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }
