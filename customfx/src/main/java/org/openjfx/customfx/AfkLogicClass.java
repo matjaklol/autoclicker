@@ -1,6 +1,5 @@
 package org.openjfx.customfx;
 
-
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -16,12 +15,13 @@ import javafx.scene.control.TitledPane;
  * @version 1.1.2
  */
 public class AfkLogicClass {
+	//The start button and some basic booleans.
 	private Button afkStartButton;
 	private boolean canGoAfk = true;
 	private boolean afk = false;
 	
 	
-	//Basic:
+	//Basic Section:
 	private TitledPane optionSection;
 	
 	//At least one of these need to be enabled in order for the anti-afk to function.
@@ -39,7 +39,7 @@ public class AfkLogicClass {
 	private boolean timer = false;
 	
 	
-	//Advanced:
+	//Advanced Section:
 	private TitledPane advancedSection;
 	private TextField betweenActionsTextBox;
 	private ChoiceBox<String> betweenActionsTimespan;
